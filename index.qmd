@@ -1,11 +1,22 @@
 ---
-title: "izo_1026_groups"
+title: "Application of Bayesian Multilevel Modeling in Quantitative Structure-Retention Relationship Studies of Heterogeneous Compounds"
+author: "Paweł Wiczling, Agnieszka Kamedulska, Łukasz Kubik"
+adress: "Department of Biopharmaceutics and Pharmacodynamics, Medical University of Gdańsk, Gen. J. Hallera 107, 80-416 Gdańsk, Poland"
+date: "`r format(Sys.Date())`"
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r}
-1 + 1
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE, message=FALSE, error=FALSE, warning=FALSE, comment=NA, out.width='95%')
 ```
+
+# Introduction
+
+Quantitative structure−retention relationships (QSRRs) are used in the field of chromatography to model the relationship between an analyte structure and chromatographic retention. Such models are typically difficult to build and validate for heterogeneous compounds because of their many descriptors and relatively limited analyte-specific data. In this study, a Bayesian multilevel model is proposed to characterize the isocratic retention time data collected for 1026 heterogeneous analytes. The QSRR considers the effects of the molecular mass and 100 functional groups (substituents) on analyte-specific chromatographic parameters of the Neue model (i.e., the retention factor in water, the retention factor in acetonitrile, and the curvature coefficient). A Bayesian multilevel regression model was used to smooth noisy parameter estimates with too few data and to consider the uncertainties in the model parameters. 
+
+We discuss the benefits of the Bayesian multilevel model: 
+1) to understand chromatographic data,
+2) to quantify the effect of functional groups on chromatographic retention,
+3) to predict analyte retention based on various types of preliminary data. 
+
+The uncertainty of isocratic and gradient predictions was visualized using uncertainty chromatograms and discussed in terms of usefulness in decision making. We think that this method will provide the most benefit in providing a unified scheme for analyzing large chromatographic databases and assessing the impact of functional groups and other descriptors on analyte retention.
+

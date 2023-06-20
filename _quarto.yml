@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: docs
 
 website:
   title: "izo_1026_groups"
@@ -14,6 +15,8 @@ format:
     theme: cosmo
     css: styles.css
     toc: true
-
+    code-fold: true
+    code-tools: true
+    
 editor: visual
 

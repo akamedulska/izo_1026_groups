@@ -2,8 +2,6 @@
 title: "About"
 ---
 
-About this site
+This page contains an analysis of isocratic chromatographic data published in the article:
 
-```{r}
-1 + 1
-```
+Paweł Wiczling, Agnieszka Kamedulska, Łukasz Kubik, 2021, "Application of Bayesian Multilevel Modeling in Quantitative Structure-Retention Relationship Studies of Heterogeneous Compounds", Analytical Chemistry, 93 (18): 6961-6971.
