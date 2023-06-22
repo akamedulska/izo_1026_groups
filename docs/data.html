@@ -123,6 +123,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Data</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./model.html" rel="" target="">
+ <span class="menu-text">Model</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./about.html" rel="" target="">
  <span class="menu-text">About</span></a>
   </li>  
@@ -341,20 +345,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x=</span><span class="fu">element_blank</span>(),</span>
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y=</span><span class="fu">element_blank</span>()) <span class="sc">+</span> </span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>,<span class="dv">10</span>))</span>
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>sumdata[<span class="fu">which</span>(sumdata<span class="sc">$</span>split<span class="sc">==</span><span class="dv">2</span>),], <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(key, <span class="sc">+</span>value), <span class="at">y=</span>value, <span class="at">fill=</span>key)) <span class="sc">+</span></span>
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill=</span><span class="st">"blue"</span>, <span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span> </span>
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
 <span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x=</span><span class="fu">element_blank</span>(),</span>
 <span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y=</span><span class="fu">element_blank</span>()) <span class="sc">+</span> </span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()  </span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">trans=</span><span class="st">'log10'</span>,<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">100</span>,<span class="dv">1000</span>))</span>
 <span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Custom design (# means empty area)</span></span>
 <span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="st">"</span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="st">  122222</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="st">  1222</span></span>
 <span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span>
 <span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the plots with a custom layout</span></span>
@@ -766,20 +770,20 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x=</span><span class="fu">element_blank</span>(),</span>
 <span id="cb13-109"><a href="#cb13-109" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y=</span><span class="fu">element_blank</span>()) <span class="sc">+</span> </span>
 <span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
-<span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))</span>
+<span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>,<span class="dv">10</span>))</span>
 <span id="cb13-112"><a href="#cb13-112" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-113"><a href="#cb13-113" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>sumdata[<span class="fu">which</span>(sumdata<span class="sc">$</span>split<span class="sc">==</span><span class="dv">2</span>),], <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(key, <span class="sc">+</span>value), <span class="at">y=</span>value, <span class="at">fill=</span>key)) <span class="sc">+</span></span>
 <span id="cb13-114"><a href="#cb13-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill=</span><span class="st">"blue"</span>, <span class="at">stat=</span><span class="st">"identity"</span>) <span class="sc">+</span> </span>
 <span id="cb13-115"><a href="#cb13-115" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
 <span id="cb13-116"><a href="#cb13-116" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x=</span><span class="fu">element_blank</span>(),</span>
 <span id="cb13-117"><a href="#cb13-117" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y=</span><span class="fu">element_blank</span>()) <span class="sc">+</span> </span>
-<span id="cb13-118"><a href="#cb13-118" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()  </span>
+<span id="cb13-118"><a href="#cb13-118" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">trans=</span><span class="st">'log10'</span>,<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">100</span>,<span class="dv">1000</span>))</span>
 <span id="cb13-119"><a href="#cb13-119" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-120"><a href="#cb13-120" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb13-121"><a href="#cb13-121" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-122"><a href="#cb13-122" aria-hidden="true" tabindex="-1"></a><span class="co"># Custom design (# means empty area)</span></span>
 <span id="cb13-123"><a href="#cb13-123" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="st">"</span></span>
-<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a><span class="st">  122222</span></span>
+<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a><span class="st">  1222</span></span>
 <span id="cb13-125"><a href="#cb13-125" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span>
 <span id="cb13-126"><a href="#cb13-126" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-127"><a href="#cb13-127" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the plots with a custom layout</span></span>

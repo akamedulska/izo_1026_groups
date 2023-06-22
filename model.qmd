@@ -1,0 +1,77 @@
+# Model
+
+A nonlinear relationship between the decimal logarithm of the retention factor (log k) and organic modifier (Neue et al.16 equation) was assumed to hold for all analytes
+\begin{align}
+ \log k_{ij}= \log k_{w,i}-\frac{S_{1,i}\cdot \varphi_j}{1+S_{2,i}\cdot \varphi_j} ,\label{eg1}
+\end{align} 
+where $\log k_{w,i}$, $S_1$,i, $S_2$,i are the logarithm of the retention factor in water, the slope, and the curvature coefficient for the $i$-th analyte, respectively, and $\varphi_j$ denotes the $j$-th acetonitrile content. For convenience, this equation was reparametrized to the retention factor in acetonitrile ($\log k_a$) noticing that:
+\begin{align*}
+ \log k_{a,i}= \log k_{w,i}-\frac{S_{1,i}}{1+S_{2,i}}.
+\end{align*} 
+
+### First-level model 
+The observed retention factors ($\log k_{obs,z}$) were further modeled as
+\begin{align*}
+ \log k_{obs,z}\sim \text{Student t}(\nu_{obs},\log k_{i[z],j[z]},\sigma).
+\end{align*} 
+where $z$ denotes the $z$-th measurement and Student t denotes the Student’s t-distribution with the mean given by eq \ref{eq1} standard deviation $\sigma$, and normality parameter $\nu_{obs}$. The Student’s t-distribution
+was used to ensure robustness to outliers at the measurement level.
+
+
+### Second-level model
+Multilevel modeling allows us to include a range of second level models for analyte-specific parameters ($\log k_{w,i}$, $\log k_{a,i}$, and $\log S_{2,i})
+\begin{align*}
+\begin{bsmallmatrix}
+\log{k_{w,i}}  \\
+\log{k_{a,i}} \\
+\log{S_{2,i}}
+\end{bsmallmatrix}=& \text{MST}\left(\nu,   \begin{bsmallmatrix}
+ &\theta_{\log{k_{w}}} +\beta_{\log k_{w}} \cdot (M_{mol,i}-300)/100-\pi_{\log k_{w}}\cdot X, & \\
+ & \theta_{\log{k_{a}}} +\beta_{\log k_{a}} \cdot (M_{mol,i}-300)/100-\pi_{\log k_{a}}\cdot X, &  \\
+& \theta_{\log{S_{2}}} +\beta_{\log S_{2}} \cdot (M_{mol,i}-300)/100-\pi_{\log S_{2}}\cdot X, &
+\end{bsmallmatrix}, \Omega\right).
+\end{align*}
+where MST denotes the multivariate Student’s t-distribution; $\theta$ is a vector of mean values of chromatographic parameters, where $\theta_{\log{k_{w}}}$, $\theta_{\log{k_{a}}}$, and $\theta_{\log{S_{2}}}$ denote the mean values of analyte specific parameters for an analyte with the molecular mass of 300 and without any substituent, respectively; $\nu$ is a normality parameter; and $\Omega$ denotes a variance−covariance matrix. $M_{mol}$ is the molecular mass, $\beta$ is an effect of the molecular mass/100, where 100 is approximately the standard deviation of the available molecular masses of analytes, and $\pi$ is an effect of each functional group on chromatographic parameters with separate values for $\log{k_{w}}$, $\log{k_{a}}$, and $\log{S_{2}}$. $X$ is a matrix of size 1026 × 100 that decodes the number of functional groups present on each analyte. The lack of a particular functional group was denoted as 0, and the presence of a functional group was denoted as $n$, where $n$ denote the number of functional groups of the same type present on each analyte. $S_2$ was modeled on a logarithmic scale to ensure that $S_2$ values were positive.
+
+Also, we decomposed the covariance matrix into a scale ($\omega$) and a correlation (matrix $\rho$) based on the formula to ease the specification of the prior distribution
+\begin{align*}
+\Omega = diag(\omega)\cdot \rho\cdot diag(\omega).
+\end{align*}
+
+### Third-level model
+Finally, a third-level model was used for regression parameters describing the effects of substituents ($\pi_{\log S_{2}}$, $\pi_{\log k_{w}}$, and $\pi_{d\log k}$ equal to the difference between $\pi_{\log k_{w}}$ and $\pi_{\log k_{a}}$)
+\begin{align*}
+\pi_{\log k_{w},1:100}\sim \text{log-normal}(\ln(\theta_{\pi\log k_w}), \sigma_{\pi\log k_w}),\\
+\pi_{d\log k,1:100}\sim \text{Student t}(\nu_{\pi}, \theta_{\pi d\log k}, \sigma_{\pi d\log k}),\\
+\pi_{\log S_{2},1:100}\sim \text{N}(0, \sigma_{\pi\log S_2}),
+\end{align*}
+where $\theta_{\pi}$ denotes the effect of a typical functional group, and $\sigma_{\pi}$ is a standard deviation of the individual $\pi_{1:100}$ values. In this study, $\pi\log k_w$ was restricted to be positive using a log-normal distribution. 
+
+## Priors
+
+In this work were used weakly uninformative priors: 
+
+\begin{align*}
+\nu_{obs} \sim Gamma(2,0.1),\\
+\sigma \sim N_+(0,0.067),\\
+\\
+\nu \sim Gamma(2,0.1),\\
+\theta_{\log k_{w}} \sim N(6.6,1.5),  \quad \theta_{\log k_{a}} \sim N(1.3,1.5),\\
+\theta_{\log S_{2}},  \sim N(\log 2,0.2), \\
+\beta_{\log k_{w}} \sim N(1.4,1.5), \quad
+\beta_{\log k_{a}} \sim N(0.2,1.5), \\
+\beta_{\log S_{2}} \sim N(0,0.2), \\
+\omega_{\log k_{w}} \sim N_+(0,1.5),\\
+\omega_{\log k_{a}} \sim N_+(0,1.5),\\
+\omega_{\log S_{2}} \sim N_+(0,0.2),\\
+\begin{bmatrix}
+ 1 & \rho_{1,2} & \rho_{1,3} \\
+ \rho_{2,1} & 1 & \rho_{2,3} \\
+ \rho_{3,1} & \rho_{3,2} & 1 
+ \end{bmatrix} \sim \text{LKJ}(1), \\
+ \\
+\theta_{\pi \log k_w}\sim N_+(0,1.5), \quad \theta_{\pi d\log k}\sim N_(0,1.5),\\
+\sigma_{\pi\log k_w},\sigma_{\pi d\log k}\sim N_+(0,1.5),\sigma_{\pi \log S_2}\sim N_+(0,0.2)\\
+\nu_{\pi} \sim Gamma(2,0.1).\\
+\end{align*}
+

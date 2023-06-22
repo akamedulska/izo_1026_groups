@@ -108,20 +108,20 @@ p1 <- ggplot(data=sumdata[which(sumdata$split==1),], aes(x=reorder(key, +value),
         axis.title.x=element_blank(),
         axis.title.y=element_blank()) + 
   coord_flip()+
-  scale_y_continuous(breaks=c(0,10))
+  scale_y_continuous(breaks=c(0,5,10))
 
 p2 <- ggplot(data=sumdata[which(sumdata$split==2),], aes(x=reorder(key, +value), y=value, fill=key)) +
   geom_bar(fill="blue", stat="identity") + 
   theme(legend.position = "none",
         axis.title.x=element_blank(),
         axis.title.y=element_blank()) + 
-  coord_flip()  
+  coord_flip() + scale_y_continuous(trans='log10',breaks=c(0,10,100,1000))
 
 library(patchwork)
 
 # Custom design (# means empty area)
 design <- "
-  122222
+  1222
 "
 
 # Combine the plots with a custom layout
