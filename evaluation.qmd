@@ -1,0 +1,36 @@
+# Evaluation 
+
+```{r}
+# load data
+DS  <- read.csv(here::here("1_data/database_stan_1026.csv"),header = TRUE, sep = ";", dec = ".")
+fit <- cmdstanr::as_cmdstan_fit(c('2_model/output_1.csv',
+                                  '2_model/output_2.csv',
+                                  '2_model/output_3.csv',
+                                  '2_model/output_4.csv',
+                                  '2_model/output_5.csv',
+                                  '2_model/output_6.csv',
+                                  '2_model/output_7.csv',
+                                  '2_model/output_8.csv',
+                                  '2_model/output_9.csv',
+                                  '2_model/output_10.csv'))
+```       
+
+## Goodness of fit
+
+```{r message=FALSE,warning=FALSE}
+logkCond <- fit$draws('logkCond', format = "df")[,-c(5098:5100)]
+logkPred <- fit$draws('logkPred', format = "df")[,-c(5098:5100)]
+
+par(mfrow=c(1,2))
+plot(apply(logkCond,2,mean),DS$logk,cex.lab=1.2,xlim=c(-4,6),ylim=c(-3,3),pch=20,col="blue",ylab=expression("Log k"[Obs]),xlab=expression("Log k"[Pred]))
+lines(seq(-4,6,by=0.1),seq(-4,6,by=0.1),lwd=2)
+plot(apply(logkPred,2,mean),DS$logk,cex.lab=1.2,xlim=c(-4,6),ylim=c(-3,3),pch=20,col="blue",ylab=expression("Log k"[Obs]),xlab=expression("Log k"[Pred]))
+lines(seq(-4,6,by=0.1),seq(-4,6,by=0.1),lwd=2)
+```
+
+### WAIC
+
+```{r message=FALSE, warning=FALSE}
+loo_result <- fit$loo(cores = 2)
+print(loo_result)
+```

@@ -128,7 +128,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./evaluation.html" rel="" target="" aria-current="page">
- <span class="menu-text">load data</span></a>
+ <span class="menu-text">Evaluation</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./about.html" rel="" target="">
@@ -150,9 +150,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#goodness-of-fit" id="toc-goodness-of-fit" class="nav-link active" data-scroll-target="#goodness-of-fit">Goodness of fit</a>
+  <li><a href="#evaluation" id="toc-evaluation" class="nav-link active" data-scroll-target="#evaluation">Evaluation</a>
+  <ul class="collapse">
+  <li><a href="#goodness-of-fit" id="toc-goodness-of-fit" class="nav-link" data-scroll-target="#goodness-of-fit">Goodness of fit</a>
   <ul class="collapse">
   <li><a href="#waic" id="toc-waic" class="nav-link" data-scroll-target="#waic">WAIC</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -162,6 +165,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+<section id="evaluation" class="level1">
+<h1>Evaluation</h1>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -229,6 +234,7 @@ See help('pareto-k-diagnostic') for details.</code></pre>
 
 <!-- -->
 
+</section>
 </section>
 </section>
 
@@ -517,40 +523,43 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># load data</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>DS  <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"1_data/database_stan_1026.csv"</span>),<span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">";"</span>, <span class="at">dec =</span> <span class="st">"."</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> cmdstanr<span class="sc">::</span><span class="fu">as_cmdstan_fit</span>(<span class="fu">c</span>(<span class="st">'2_model/output_1.csv'</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_2.csv'</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_3.csv'</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_4.csv'</span>,</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_5.csv'</span>,</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_6.csv'</span>,</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_7.csv'</span>,</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_8.csv'</span>,</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_9.csv'</span>,</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_10.csv'</span>))</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span>       </span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Goodness of fit</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="in">```{r message=FALSE,warning=FALSE}</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>logkCond <span class="ot">&lt;-</span> fit<span class="sc">$</span><span class="fu">draws</span>(<span class="st">'logkCond'</span>, <span class="at">format =</span> <span class="st">"df"</span>)[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">5098</span><span class="sc">:</span><span class="dv">5100</span>)]</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>logkPred <span class="ot">&lt;-</span> fit<span class="sc">$</span><span class="fu">draws</span>(<span class="st">'logkPred'</span>, <span class="at">format =</span> <span class="st">"df"</span>)[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">5098</span><span class="sc">:</span><span class="dv">5100</span>)]</span>
+<div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Evaluation </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># load data</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>DS  <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"1_data/database_stan_1026.csv"</span>),<span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">";"</span>, <span class="at">dec =</span> <span class="st">"."</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> cmdstanr<span class="sc">::</span><span class="fu">as_cmdstan_fit</span>(<span class="fu">c</span>(<span class="st">'2_model/output_1.csv'</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_2.csv'</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_3.csv'</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_4.csv'</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_5.csv'</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_6.csv'</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_7.csv'</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_8.csv'</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_9.csv'</span>,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'2_model/output_10.csv'</span>))</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span>       </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Goodness of fit</span></span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">apply</span>(logkCond,<span class="dv">2</span>,mean),DS<span class="sc">$</span>logk,<span class="at">cex.lab=</span><span class="fl">1.2</span>,<span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">6</span>),<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>),<span class="at">pch=</span><span class="dv">20</span>,<span class="at">col=</span><span class="st">"blue"</span>,<span class="at">ylab=</span><span class="fu">expression</span>(<span class="st">"Log k"</span>[Obs]),<span class="at">xlab=</span><span class="fu">expression</span>(<span class="st">"Log k"</span>[Pred]))</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">6</span>,<span class="at">by=</span><span class="fl">0.1</span>),<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">6</span>,<span class="at">by=</span><span class="fl">0.1</span>),<span class="at">lwd=</span><span class="dv">2</span>)</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">apply</span>(logkPred,<span class="dv">2</span>,mean),DS<span class="sc">$</span>logk,<span class="at">cex.lab=</span><span class="fl">1.2</span>,<span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">6</span>),<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>),<span class="at">pch=</span><span class="dv">20</span>,<span class="at">col=</span><span class="st">"blue"</span>,<span class="at">ylab=</span><span class="fu">expression</span>(<span class="st">"Log k"</span>[Obs]),<span class="at">xlab=</span><span class="fu">expression</span>(<span class="st">"Log k"</span>[Pred]))</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">6</span>,<span class="at">by=</span><span class="fl">0.1</span>),<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">6</span>,<span class="at">by=</span><span class="fl">0.1</span>),<span class="at">lwd=</span><span class="dv">2</span>)</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="fu">### WAIC</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="in">```{r message=FALSE, warning=FALSE}</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>loo_result <span class="ot">&lt;-</span> fit<span class="sc">$</span><span class="fu">loo</span>(<span class="at">cores =</span> <span class="dv">2</span>)</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(loo_result)</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="in">```{r message=FALSE,warning=FALSE}</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>logkCond <span class="ot">&lt;-</span> fit<span class="sc">$</span><span class="fu">draws</span>(<span class="st">'logkCond'</span>, <span class="at">format =</span> <span class="st">"df"</span>)[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">5098</span><span class="sc">:</span><span class="dv">5100</span>)]</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>logkPred <span class="ot">&lt;-</span> fit<span class="sc">$</span><span class="fu">draws</span>(<span class="st">'logkPred'</span>, <span class="at">format =</span> <span class="st">"df"</span>)[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">5098</span><span class="sc">:</span><span class="dv">5100</span>)]</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">apply</span>(logkCond,<span class="dv">2</span>,mean),DS<span class="sc">$</span>logk,<span class="at">cex.lab=</span><span class="fl">1.2</span>,<span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">6</span>),<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>),<span class="at">pch=</span><span class="dv">20</span>,<span class="at">col=</span><span class="st">"blue"</span>,<span class="at">ylab=</span><span class="fu">expression</span>(<span class="st">"Log k"</span>[Obs]),<span class="at">xlab=</span><span class="fu">expression</span>(<span class="st">"Log k"</span>[Pred]))</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">6</span>,<span class="at">by=</span><span class="fl">0.1</span>),<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">6</span>,<span class="at">by=</span><span class="fl">0.1</span>),<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">apply</span>(logkPred,<span class="dv">2</span>,mean),DS<span class="sc">$</span>logk,<span class="at">cex.lab=</span><span class="fl">1.2</span>,<span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">6</span>),<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>),<span class="at">pch=</span><span class="dv">20</span>,<span class="at">col=</span><span class="st">"blue"</span>,<span class="at">ylab=</span><span class="fu">expression</span>(<span class="st">"Log k"</span>[Obs]),<span class="at">xlab=</span><span class="fu">expression</span>(<span class="st">"Log k"</span>[Pred]))</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">6</span>,<span class="at">by=</span><span class="fl">0.1</span>),<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">6</span>,<span class="at">by=</span><span class="fl">0.1</span>),<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="fu">### WAIC</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="in">```{r message=FALSE, warning=FALSE}</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>loo_result <span class="ot">&lt;-</span> fit<span class="sc">$</span><span class="fu">loo</span>(<span class="at">cores =</span> <span class="dv">2</span>)</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(loo_result)</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
