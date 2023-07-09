@@ -10,7 +10,8 @@ website:
         text: Home
       - data.qmd
       - model.qmd
-      - analysis.qmd
+#      - analysis.qmd
+      - evaluation.qmd
       - about.qmd
 
 format:

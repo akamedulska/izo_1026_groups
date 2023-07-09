@@ -19,4 +19,4 @@ cd $MODEL_SRC_DIR
 # Budowanie modelu
 [ -f HPLCizomodel44 ] && echo "Model HPLCizomodel44 istnieje." || cmdstan_model HPLCizomodel44
 
-./HPLCizomodel44 sample num_samples=400 num_warmup=1000 algorithm=hmc engine=nuts max_depth=12 stepsize=0.01 adapt delta=0.8 data file=$PWD/model.data.R init=$PWD/model_${SLURM_ARRAY_TASK_ID}.init.R  num_threads=${SLURM_NTASKS} output file=$PWD/output_${SLURM_ARRAY_TASK_ID}.csv
+./HPLCizomodel44 sample num_samples=400 num_warmup=1000 algorithm=hmc engine=nuts max_depth=14 stepsize=0.01 adapt delta=0.8 data file=$PWD/model.data.R init=$PWD/model_${SLURM_ARRAY_TASK_ID}.init.R  num_threads=${SLURM_NTASKS} output file=$PWD/output_${SLURM_ARRAY_TASK_ID}.csv

@@ -119,7 +119,7 @@ model{
 generated quantities{
   real logkCond[nObs];
   real logkPred[nObs];
-  //real log_lik[nObs];
+  real log_lik[nObs];
   vector[3] paramPred[nAnalytes]; 
   
   for(j in 1:nAnalytes){
@@ -131,6 +131,6 @@ generated quantities{
    logkHatPred = hplcmodel(fi[i], paramPred[analyte[i],1], paramPred[analyte[i],2], paramPred[analyte[i],3]);
    logkCond[i] = student_t_rng(nuobs, logkHat[i], sigma);
    logkPred[i] = student_t_rng(nuobs, logkHatPred, sigma);
-   //log_lik[i]= student_t_lpdf(logkObs[i] | nuobs, logkHat[i], sigma);
+   log_lik[i]= student_t_lpdf(logkObs[i] | nuobs, logkHat[i], sigma);
   }
 }
